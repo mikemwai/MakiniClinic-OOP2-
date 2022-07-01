@@ -22,10 +22,10 @@ public class Login extends Application
     public void start(Stage stage) throws IOException
     {
         //Node
-        Text name_label=new Text("User Name");  //Name label
+        Text name_label=new Text("UserName");  //Name label
         Text pass_label=new Text("Password");   //Password label
 
-        Button login_button=new Button("Sign In"); //Login Button
+        Button login_button=new Button("Log In"); //Login Button
 
         TextField user_name=new TextField();  //Username textfield
         PasswordField pass=new PasswordField(); //Password field
@@ -60,7 +60,7 @@ public class Login extends Application
                     //System.out.println("1");
 
                     //Step Two - Creating the connection
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/exercise?","root","");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/makiniclinic?","root","");
                     //System.out.println("2");
 
                     //Step Three - Create the statement object
@@ -68,7 +68,7 @@ public class Login extends Application
                     //System.out.println("3");
 
                     //Step Four
-                    String query = "SELECT * FROM exercise.users Where username = '"+username+"' AND password = '"+password+"' ";
+                    String query = "SELECT * FROM makiniclinic.users Where username = '"+username+"' AND password = '"+password+"' ";
                     ResultSet rs = st.executeQuery(query);
                     System.out.println("Connected Successfully");
 
@@ -106,7 +106,7 @@ public class Login extends Application
         //Stage
         stage.setScene(scene);
         stage.show();
-        stage.setTitle("Login Page!");
+        stage.setTitle("Makini Clinic: Login Page");
 
         /*
         FXMLLoader fxmlLoader = new FXMLLoader(Login.class.getResource("hello-view.fxml"));
