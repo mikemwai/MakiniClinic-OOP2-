@@ -2,7 +2,6 @@ package com.example.advancedoopproject;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,70 +15,66 @@ import java.sql.Statement;
 import java.io.IOException;
 
 
-public class Login extends Application
+public class DoctorsLogin extends Application
 {
+    static Stage stage=new Stage();
+
     @Override
     public void start(Stage stage) throws IOException
     {
         //Node
-        Text name_label=new Text("UserName");  //Name label
-        Text pass_label=new Text("Password");   //Password label
+        Text PhoneNo_label=new Text("PhoneNo");
+        Text pass_label=new Text("Password");
 
-        Button login_button=new Button("Log In"); //Login Button
+        Button login_button=new Button("Log In");
 
-        TextField user_name=new TextField();  //Username textfield
-        PasswordField pass=new PasswordField(); //Password field
+        TextField phoneNo=new TextField();
+        PasswordField pass=new PasswordField();
 
-        GridPane gridpane=new GridPane();   //Container
+        //Container
+        GridPane gridpane=new GridPane();
         gridpane.setMinSize(800,400);
         gridpane.setVgap(20);
         gridpane.setHgap(40);
         gridpane.setAlignment(Pos.CENTER);
 
-        gridpane.add(name_label, 1,1);
+        gridpane.add(PhoneNo_label, 1,1);
         gridpane.add(pass_label,1,2);
         gridpane.add(login_button,1,3);
-        gridpane.add(user_name,2,1);
+        gridpane.add(phoneNo,2,1);
         gridpane.add(pass,2,2);
 
         login_button.setOnMouseClicked((new EventHandler<MouseEvent>()
         {
             public void handle(MouseEvent event)
             {
-                //String uname = "jane";
-                //String pass_ = "12345" ;
-                String username = user_name.getText();
+                String PhoneNo = phoneNo.getText();
                 String password = pass.getText();
 
 
                 try
                 {
-                    //Step One - Register the driver
-                    //System.out.println("0");
+
                     Class.forName("com.mysql.cj.jdbc.Driver");
-                    //System.out.println("1");
 
-                    //Step Two - Creating the connection
                     Connection con = DriverManager.getConnection("jdbc:mysql://localhost/makiniclinic?","root","");
-                    //System.out.println("2");
 
-                    //Step Three - Create the statement object
                     Statement st= con.createStatement();
-                    //System.out.println("3");
 
-                    //Step Four
-                    String query = "SELECT * FROM makiniclinic.users Where username = '"+username+"' AND password = '"+password+"' ";
+                    String query = "SELECT * FROM makiniclinic.doctors Where PhoneNo = '"+PhoneNo+"' AND password = '"+password+"' ";
                     ResultSet rs = st.executeQuery(query);
                     System.out.println("Connected Successfully");
 
                     if(rs.next())
                     {
-                        //You can replace this code with ANY code to be executed after a successfull login
-                        Alert al = new Alert(Alert.AlertType.CONFIRMATION);
-                        al.setContentText("Successful Login");
+                        /*Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                        al.setContentText("Successful DoctorsLogin");
                         al.show();
-                        Home h = new Home();
-                        h.start(Home.homeStage);
+                        Admin a = new Admin();
+                        a.start(Admin.adminStage);*/
+                        DoctorHome d = new DoctorHome();
+                        d.start(DoctorHome.homeStage);
+
                     }
 
                     else
@@ -90,7 +85,6 @@ public class Login extends Application
 
                     }
 
-                    //Step five - Closing the connection
                     con.close();
 
                 }
@@ -101,18 +95,12 @@ public class Login extends Application
         }));
 
         //Scene
-        Scene scene=new Scene(gridpane);  //This is the scene
+        Scene scene=new Scene(gridpane);
 
         //Stage
         stage.setScene(scene);
         stage.show();
-        stage.setTitle("Makini Clinic: Login Page");
-
-        /*
-        FXMLLoader fxmlLoader = new FXMLLoader(Login.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setScene(scene);
-        stage.show();*/
+        stage.setTitle("Makini Clinic: DoctorsLogin Page");
     }
 
     public static void main(String[] args)
@@ -120,3 +108,4 @@ public class Login extends Application
         launch(args);
     }
 }
+
