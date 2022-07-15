@@ -26,6 +26,7 @@ public class OutPatientsView extends Application
         addcolumns("Patient Id", "Patient_id");
         addcolumns("First Name", "FName");
         addcolumns("Last Name", "LName");
+        addcolumns("Phone Number", "PhoneNo");
         addcolumns("Sex", "Sex");
         addcolumns("Illness", "Illness");
         addcolumns("Doctor Id", "Doctor_id");
@@ -49,10 +50,11 @@ public class OutPatientsView extends Application
                 String Patient_id = rs.getString(2);
                 String FName = rs.getString(3);
                 String LName = rs.getString(4);
-                String Sex = rs.getString(5);
-                String Illness = rs.getString(6);
-                String Doctor_id = rs.getString(7);
-                String Discharged = rs.getString(8);
+                String PhoneNo = rs.getString(5);
+                String Sex = rs.getString(6);
+                String Illness = rs.getString(7);
+                String Doctor_id = rs.getString(8);
+                String Discharged = rs.getString(9);
 
                 OutPatientRecords outpatientRecords = new OutPatientRecords();
 
@@ -60,6 +62,7 @@ public class OutPatientsView extends Application
                 outpatientRecords.Patient_id.setValue(Patient_id);
                 outpatientRecords.FName.setValue(FName);
                 outpatientRecords.LName.setValue(LName);
+                outpatientRecords.PhoneNo.setValue(PhoneNo);
                 outpatientRecords.Sex.setValue(Sex);
                 outpatientRecords.Illness.setValue(Illness);
                 outpatientRecords.Doctor_id.setValue(Doctor_id);

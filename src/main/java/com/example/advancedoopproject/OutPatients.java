@@ -25,8 +25,9 @@ public class OutPatients extends Application
         Text Patientid_label=new Text("National Id No:");
         Text FName_label=new Text("First Name:");
         Text LName_label=new Text("Last Name:");
+        Text phoneno_label=new Text("PhoneNo:");
         Text Sex_label=new Text("Gender:");
-        Text PhoneNo_label=new Text("Illness:");
+        Text Illness_label=new Text("Illness:");
         Text pass_label=new Text("Doctor Id:");
         Text pass1_label=new Text("Discharged(Yes or No):");
 
@@ -35,8 +36,9 @@ public class OutPatients extends Application
         TextField patientid=new TextField();
         TextField fName=new TextField();
         TextField lName=new TextField();
+        TextField phoneno=new TextField();
         TextField sex=new TextField();
-        TextField phoneNo=new TextField();
+        TextField illness=new TextField();
         TextField pass=new TextField();
         TextField pass1=new TextField();
 
@@ -50,19 +52,21 @@ public class OutPatients extends Application
         gridpane.add(Patientid_label, 1,1);
         gridpane.add(FName_label, 1,2);
         gridpane.add(LName_label, 1,3);
-        gridpane.add(Sex_label, 1,4);
-        gridpane.add(PhoneNo_label, 1,5);
-        gridpane.add(pass_label,1,6);
-        gridpane.add(pass1_label,1,7);
-        gridpane.add(register_button,1,8);
+        gridpane.add(phoneno_label, 1,4);
+        gridpane.add(Sex_label, 3,1);
+        gridpane.add(Illness_label, 3,2);
+        gridpane.add(pass_label,3,3);
+        gridpane.add(pass1_label,3,4);
+        gridpane.add(register_button,1,5);
 
         gridpane.add(patientid,2,1);
         gridpane.add(fName,2,2);
         gridpane.add(lName,2,3);
-        gridpane.add(sex,2,4);
-        gridpane.add(phoneNo,2,5);
-        gridpane.add(pass,2,6);
-        gridpane.add(pass1,2,7);
+        gridpane.add(phoneno,2,4);
+        gridpane.add(sex,4,1);
+        gridpane.add(illness,4,2);
+        gridpane.add(pass,4,3);
+        gridpane.add(pass1,4,4);
 
         register_button.setOnMouseClicked((new EventHandler<MouseEvent>()
         {
@@ -71,8 +75,9 @@ public class OutPatients extends Application
                 String Patientid = patientid.getText();
                 String FName = fName.getText();
                 String LName = lName.getText();
+                String phone = phoneno.getText();
                 String Sex = sex.getText();
-                String PhoneNo = phoneNo.getText();
+                String Illness = illness.getText();
                 String password = pass.getText();
                 String password1 = pass1.getText();
 
@@ -86,12 +91,12 @@ public class OutPatients extends Application
 
                     Statement st= con.createStatement();
 
-                    String query2 = "INSERT INTO out_patients (Patient_id,FName,LName,Sex,Illness,Doctor_id,Discharged) " +
-                            "VALUES('"+Patientid+"','"+FName+"','"+LName+"','"+Sex+"','"+PhoneNo+"','"+password+"','"+password1+"')";
+                    String query2 = "INSERT INTO out_patients (Patient_id,FName,LName,PhoneNo,Sex,Illness,Doctor_id,Discharged) " +
+                            "VALUES('"+Patientid+"','"+FName+"','"+LName+"','"+phone+"','"+Sex+"','"+Illness+"','"+password+"','"+password1+"')";
                     st.executeUpdate(query2);
 
-                    /*String query3="DELETE appointments WHERE Doctor_id='password'";
-                    st.executeUpdate(query3);*/
+                    String query3="DELETE FROM appointment WHERE PhoneNo=phoneno";
+                    st.executeUpdate(query3);
 
                     //DELETE FROM `appointment` WHERE `appointment`.`Appointment_id` = 1;
 

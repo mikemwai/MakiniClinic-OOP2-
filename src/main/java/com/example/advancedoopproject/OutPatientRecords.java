@@ -9,6 +9,7 @@ public class OutPatientRecords {
     public ObjectProperty<String> Patient_id =  new SimpleObjectProperty<>();
     public ObjectProperty<String> FName =  new SimpleObjectProperty<>();
     public ObjectProperty<String> LName =  new SimpleObjectProperty<>();
+    public ObjectProperty<String> PhoneNo =  new SimpleObjectProperty<>();
     public ObjectProperty<String> Sex =  new SimpleObjectProperty<>();
     public ObjectProperty<String> Illness = new SimpleObjectProperty<>();
     public ObjectProperty<String> Doctor_id = new SimpleObjectProperty<>();
@@ -68,5 +69,12 @@ public class OutPatientRecords {
     }
     public void setDischarged(ObjectProperty<String> discharged) {
         this.Discharged = discharged;
+    }
+
+    public String getPhoneNo() {
+        return PhoneNo.get();
+    }
+    public void setPhoneNo(ObjectProperty<String> phoneNo) {
+        this.PhoneNo = phoneNo;
     }
 }
