@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2022 at 06:59 PM
+-- Generation Time: Jul 16, 2022 at 06:27 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -43,7 +43,8 @@ CREATE TABLE `appointment` (
 --
 
 CREATE TABLE `doctors` (
-  `Doctor_id` int(25) NOT NULL,
+  `Doctor_No` int(25) NOT NULL,
+  `Doctor_id` varchar(25) NOT NULL,
   `FName` varchar(25) NOT NULL,
   `LName` varchar(25) NOT NULL,
   `Sex` enum('Male','Female','','') NOT NULL,
@@ -57,9 +58,9 @@ CREATE TABLE `doctors` (
 -- Dumping data for table `doctors`
 --
 
-INSERT INTO `doctors` (`Doctor_id`, `FName`, `LName`, `Sex`, `PhoneNo`, `password`, `Availability`, `Profession`) VALUES
-(1, 'John', 'Moses', 'Male', '0789562389', 'jmoses', 'Yes', 'Gynacologist'),
-(2, 'James', 'Milner', 'Male', '0726231519', 'jmilner', 'Yes', 'Physician');
+INSERT INTO `doctors` (`Doctor_No`, `Doctor_id`, `FName`, `LName`, `Sex`, `PhoneNo`, `password`, `Availability`, `Profession`) VALUES
+(1, '315649', 'John', 'Moses', 'Male', '0789562389', 'jmoses', 'Yes', 'Physician'),
+(2, '314642', 'James', 'Milner', 'Male', '0726231519', 'jmilner', 'Yes', 'Physician');
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,10 @@ CREATE TABLE `out_patients` (
 --
 
 INSERT INTO `out_patients` (`Patient_No`, `Patient_id`, `FName`, `LName`, `PhoneNo`, `Sex`, `Illness`, `Doctor_id`, `Discharged`) VALUES
-(1, '321649', 'Maria', 'Yvonne', '0142378951', 'Female', 'Malaria', 315649, 'Yes');
+(1, '321649', 'Maria', 'Yvonne', '0142378951', 'Female', 'Malaria', 315649, 'Yes'),
+(2, '714356', 'Lorna', 'Rhodes', '0145248321', 'Female', 'Malaria', 314642, 'Yes'),
+(3, '901251', 'Dennis', 'Morgan', '0134512672', 'Male', 'Sore Throat', 314642, 'Yes'),
+(4, '214512', 'Peter', 'Macharia', '0124563955', 'Male', 'Malaria', 314642, 'Yes');
 
 -- --------------------------------------------------------
 
@@ -108,7 +112,34 @@ CREATE TABLE `patients` (
 
 INSERT INTO `patients` (`Patient_No`, `Patient_id`, `FName`, `LName`, `Sex`, `PhoneNo`, `password`) VALUES
 (1, '315647', 'John', 'Kamau', 'Male', '0132569121', 'jkamau'),
-(2, '321649', 'Maria', 'Yvonne', 'Female', '0142378951', 'myvonne');
+(2, '321649', 'Maria', 'Yvonne', 'Female', '0142378951', 'myvonne'),
+(3, '714356', 'Lorna', 'Rhodes', 'Female', '0145218321', 'lrhodes'),
+(4, '901251', 'Dennis', 'Morgan', 'Male', '0134512672', 'dmorgan'),
+(5, '214512', 'Peter', 'Macharia', 'Male', '0124563955', 'pmacharia'),
+(6, '512364', 'Rebecca', 'Wamae', 'Female', '0217566325', 'rwamae'),
+(7, '945236', 'Rose', 'Purity', 'Female', '0125469835', 'rpurity');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pharmacy`
+--
+
+CREATE TABLE `pharmacy` (
+  `product_id` int(25) NOT NULL,
+  `product_type` varchar(25) NOT NULL,
+  `product_quantity` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pharmacy`
+--
+
+INSERT INTO `pharmacy` (`product_id`, `product_type`, `product_quantity`) VALUES
+(1, 'Analgesics', 50),
+(2, 'Antibiotics', 100),
+(3, 'Vaccines', 60),
+(4, 'Supplements', 45);
 
 -- --------------------------------------------------------
 
@@ -147,7 +178,7 @@ ALTER TABLE `appointment`
 -- Indexes for table `doctors`
 --
 ALTER TABLE `doctors`
-  ADD PRIMARY KEY (`Doctor_id`);
+  ADD PRIMARY KEY (`Doctor_No`) USING BTREE;
 
 --
 -- Indexes for table `out_patients`
@@ -163,6 +194,12 @@ ALTER TABLE `patients`
   ADD UNIQUE KEY `PhoneNo` (`PhoneNo`);
 
 --
+-- Indexes for table `pharmacy`
+--
+ALTER TABLE `pharmacy`
+  ADD PRIMARY KEY (`product_id`);
+
+--
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
@@ -176,19 +213,25 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `Appointment_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Appointment_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `out_patients`
 --
 ALTER TABLE `out_patients`
-  MODIFY `Patient_No` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Patient_No` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `Patient_No` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Patient_No` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `pharmacy`
+--
+ALTER TABLE `pharmacy`
+  MODIFY `product_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `staff`
