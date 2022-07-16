@@ -2,11 +2,13 @@ package com.example.advancedoopproject;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.sql.*;
@@ -45,6 +47,17 @@ public class DoctorLogin extends Application
         gridpane.add(phoneNo,2,1);
         gridpane.add(pass,2,2);
         gridpane.add(back_button,2,3);
+
+        HBox hbox = new HBox(gridpane);
+
+        // create a background fill
+        BackgroundFill background_fill = new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY);
+
+        // create Background
+        Background background = new Background(background_fill);
+
+        // set background
+        hbox.setBackground(background);
 
         back_button.setOnMouseClicked((new EventHandler<MouseEvent>()
         {
@@ -98,9 +111,8 @@ public class DoctorLogin extends Application
                     else
                     {
                         Alert al = new Alert(Alert.AlertType.WARNING);
-                        al.setContentText("Invalid Credentials");
+                        al.setContentText("Invalid Credentials!");
                         al.show();
-
                     }
 
                     con.close();
@@ -113,7 +125,7 @@ public class DoctorLogin extends Application
         }));
 
         //Scene
-        Scene scene=new Scene(gridpane);
+        Scene scene=new Scene(hbox, 800, 400);
 
         //Stage
         stage.setScene(scene);

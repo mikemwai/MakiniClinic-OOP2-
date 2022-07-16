@@ -2,11 +2,13 @@ package com.example.advancedoopproject;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.sql.*;
@@ -35,7 +37,9 @@ public class PatientsRegister extends Application
         TextField patientid=new TextField();
         TextField fName=new TextField();
         TextField lName=new TextField();
-        TextField sex=new TextField();
+        //TextField sex=new TextField();
+        ChoiceBox<String> sex= new ChoiceBox<>();
+        sex.getItems().addAll("","Male","Female");
         TextField phoneNo=new TextField();
         PasswordField pass=new PasswordField();
 
@@ -61,6 +65,17 @@ public class PatientsRegister extends Application
         gridpane.add(sex,2,4);
         gridpane.add(phoneNo,2,5);
         gridpane.add(pass,2,6);
+
+        HBox hbox = new HBox(gridpane);
+
+        // create a background fill
+        BackgroundFill background_fill = new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY);
+
+        // create Background
+        Background background = new Background(background_fill);
+
+        // set background
+        hbox.setBackground(background);
 
         back_button.setOnMouseClicked((new EventHandler<MouseEvent>()
         {
@@ -88,47 +103,51 @@ public class PatientsRegister extends Application
                 String Patientid = patientid.getText();
                 String FName = fName.getText();
                 String LName = lName.getText();
-                String Sex = sex.getText();
+                String Sex = sex.getValue();
                 String PhoneNo = phoneNo.getText();
                 String password = pass.getText();
 
-
                 try
                 {
+                    if(Patientid==null || FName==null || LName==null || Sex==null || PhoneNo==null || password==null)
+                    {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setContentText("Please Fill out all details!");
+                        alert.show();
+                    }
+                    else
+                    {
 
-                    Class.forName("com.mysql.cj.jdbc.Driver");
+                        Class.forName("com.mysql.cj.jdbc.Driver");
 
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/makiniclinic?","root","");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/makiniclinic?","root","");
 
-                    Statement st= con.createStatement();
+                        Statement st= con.createStatement();
 
-                    String query = "INSERT INTO patients (Patient_id,FName,LName,Sex,PhoneNo,password) VALUES('"+Patientid+"','"+FName+"','"+LName+"','"+Sex+"','"+PhoneNo+"','"+password+"')";
-                    st.executeUpdate(query);
+                        String query = "INSERT INTO patients (Patient_id,FName,LName,Sex,PhoneNo,password) VALUES('"+Patientid+"','"+FName+"','"+LName+"','"+Sex+"','"+PhoneNo+"','"+password+"')";
+                        st.executeUpdate(query);
 
-                    //String query2 = "INSERT INTO out_patients (Patient_id,FName,LName,PhoneNo) VALUES('"+Patientid+"','"+FName+"','"+LName+"','"+PhoneNo+"')";
-                    //st.executeUpdate(query2);
-
-                    System.out.println("Connected Successfully");
-
-                    Alert al = new Alert(Alert.AlertType.CONFIRMATION);
-                    al.setContentText("Successful Registration!");
-                    al.show();
-
-                    //PatientsView v = new PatientsView();
-                    //v.start(PatientsView.viewstage);
-                    registerstage.close();
-
-                    con.close();
-
+                        System.out.println("Connected Successfully");
+                        registerstage.close();
+                        Alert al = new Alert(Alert.AlertType.CONFIRMATION);
+                        al.setContentText("Successful Registration!");
+                        al.show();
+                        con.close();
+                    }
                 }
-                catch(Exception ee){System.out.println(ee);System.out.println("Connection error");}
+                catch(Exception ee)
                 {
+                    Alert al = new Alert(Alert.AlertType.WARNING);
+                    al.setContentText("Please Fill out all details!");
+                    al.show();
+                    System.out.println(ee);
+                    System.out.println("Connection error");
                 }
             }
         }));
 
         //Scene
-        Scene scene=new Scene(gridpane);
+        Scene scene=new Scene(hbox, 800, 400);
 
         //Stage
         registerstage.setScene(scene);

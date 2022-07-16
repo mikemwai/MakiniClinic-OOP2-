@@ -83,7 +83,7 @@ public class OutPatientsView extends Application
         }
 
 
-        Scene  scene =  new Scene(view);
+        Scene  scene =  new Scene(view,800,400);
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Total OutPatients Report");

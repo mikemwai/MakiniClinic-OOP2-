@@ -11,7 +11,7 @@ public class PatientRecords {
     public ObjectProperty<String> LName =  new SimpleObjectProperty<>();
     public ObjectProperty<String> Sex =  new SimpleObjectProperty<>();
     public ObjectProperty<String> PhoneNo = new SimpleObjectProperty<>();
-    public ObjectProperty<String> password = new SimpleObjectProperty<>();
+    //public ObjectProperty<String> password = new SimpleObjectProperty<>();
 
     public String getPatient_No() {
         return Patient_No.get();
@@ -55,13 +55,10 @@ public class PatientRecords {
         this.PhoneNo = PhoneNo;
     }
 
-    public String getPassword() {
+    /*public String getPassword() {
         return password.get();
     }
     public void setPassword(ObjectProperty<String> password) {
         this.password = password;
-    }
-
-
-
+    }*/
 }

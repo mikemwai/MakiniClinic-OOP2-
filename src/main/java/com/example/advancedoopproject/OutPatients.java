@@ -2,11 +2,13 @@ package com.example.advancedoopproject;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.sql.*;
@@ -29,7 +31,7 @@ public class OutPatients extends Application
         Text Sex_label=new Text("Gender:");
         Text Illness_label=new Text("Illness:");
         Text pass_label=new Text("Doctor Id:");
-        Text pass1_label=new Text("Discharged(Yes or No):");
+        Text pass1_label=new Text("Discharged:");
 
         Button register_button=new Button("Update");
 
@@ -37,10 +39,15 @@ public class OutPatients extends Application
         TextField fName=new TextField();
         TextField lName=new TextField();
         TextField phoneno=new TextField();
-        TextField sex=new TextField();
+        //TextField sex=new TextField();
+        ChoiceBox<String> sex= new ChoiceBox<>();
+        sex.getItems().addAll("","Male","Female");
+        sex.getSelectionModel().select(0);
         TextField illness=new TextField();
         TextField pass=new TextField();
-        TextField pass1=new TextField();
+        //TextField pass1=new TextField();
+        ChoiceBox<String> pass1= new ChoiceBox<>();
+        pass1.getItems().addAll("","Yes","No");
 
         //Container
         GridPane gridpane=new GridPane();
@@ -68,6 +75,17 @@ public class OutPatients extends Application
         gridpane.add(pass,4,3);
         gridpane.add(pass1,4,4);
 
+        HBox hbox = new HBox(gridpane);
+
+        // create a background fill
+        BackgroundFill background_fill = new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY);
+
+        // create Background
+        Background background = new Background(background_fill);
+
+        // set background
+        hbox.setBackground(background);
+
         register_button.setOnMouseClicked((new EventHandler<MouseEvent>()
         {
             public void handle(MouseEvent event)
@@ -76,10 +94,10 @@ public class OutPatients extends Application
                 String FName = fName.getText();
                 String LName = lName.getText();
                 String phone = phoneno.getText();
-                String Sex = sex.getText();
+                String Sex = sex.getValue();
                 String Illness = illness.getText();
                 String password = pass.getText();
-                String password1 = pass1.getText();
+                String password1 = pass1.getValue();
 
 
                 try
@@ -110,14 +128,19 @@ public class OutPatients extends Application
                     con.close();
 
                 }
-                catch(Exception ee){System.out.println(ee);System.out.println("Connection error");}
+                catch(Exception ee)
                 {
+                    Alert al = new Alert(Alert.AlertType.WARNING);
+                    al.setContentText("Please Fill out all details!");
+                    al.show();
+                    System.out.println(ee);
+                    System.out.println("Connection error");
                 }
             }
         }));
 
         //Scene
-        Scene scene=new Scene(gridpane);
+        Scene scene=new Scene(hbox, 800, 400);
 
         //Stage
         register1stage.setScene(scene);

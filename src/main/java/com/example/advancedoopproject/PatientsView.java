@@ -28,7 +28,7 @@ public class PatientsView extends Application
         addcolumns("Last Name", "LName");
         addcolumns("Sex", "Sex");
         addcolumns("Phone Number", "PhoneNo");
-        addcolumns("Password", "password");
+        //addcolumns("Password", "password");
 
         try
         {
@@ -50,7 +50,7 @@ public class PatientsView extends Application
                 String LName = rs.getString(4);
                 String Sex = rs.getString(5);
                 String PhoneNo = rs.getString(6);
-                String password = rs.getString(7);
+                //String password = rs.getString(7);
 
                 PatientRecords patientRecords = new PatientRecords();
 
@@ -60,7 +60,7 @@ public class PatientsView extends Application
                 patientRecords.LName.setValue(LName);
                 patientRecords.Sex.setValue(Sex);
                 patientRecords.PhoneNo.setValue(PhoneNo);
-                patientRecords.password.setValue(password);
+                //patientRecords.password.setValue(password);
 
                 view.getItems().add(patientRecords);
 
@@ -77,7 +77,7 @@ public class PatientsView extends Application
         }
 
 
-        Scene  scene =  new Scene(view);
+        Scene  scene =  new Scene(view,800,400);
         stage.setScene(scene);
         stage.show();
         stage.setTitle("Total Patients Report");
